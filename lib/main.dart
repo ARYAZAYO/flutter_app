@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/app_screens/first_screen.dart';
 
-void main(){
-  runApp(
-      Center(
-          child:Text(
-          "Welcome to Kytech",
-          textDirection: TextDirection.ltr
-          )
-      )
-   );
+void  main() => runApp(new MyFlutterApp());
+
+class MyFlutterApp extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return  MaterialApp(
+      debugShowCheckedModeBanner: false,
+        title: "My Flutter App",
+        home: Scaffold(
+        appBar: AppBar(title: Text("My First App Screen"),),
+        body: FirstScreen()
+        )
+      );
+    }
 }
