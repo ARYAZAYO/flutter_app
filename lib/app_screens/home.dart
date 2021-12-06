@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 class Home extends StatelessWidget{
@@ -8,6 +6,7 @@ class Home extends StatelessWidget{
 
     return Center(
       child: Container(
+          padding: EdgeInsets.only(left: 10.0,top: 40.0),
           alignment: Alignment.center,
           color: Colors.deepPurple,
           child: Column(
