@@ -14,7 +14,7 @@ class Home extends StatelessWidget{
               Row(
                 children: [
                   Expanded(child: Text(
-                      "spice Jet",
+                      "Air UG",
                       textDirection: TextDirection.ltr,
                       style: TextStyle(
                           decoration: TextDecoration.none,
@@ -61,12 +61,21 @@ class Home extends StatelessWidget{
                         color: Colors.lightGreen
                     ),
                   )),
-                ],
-              )
+                ],//<widget>[]
+              ),
+            FlightImageAsset()
             ],
           )
       ),
     );
   }
-
+}
+//Image assets
+class FlightImageAsset extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    AssetImage assetImage =  AssetImage('images/flight.png');
+    Image image = Image(image: assetImage, width: 250.0, height: 250.0);
+    return Container(child: image,);
+  }
 }
