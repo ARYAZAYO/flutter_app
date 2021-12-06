@@ -4,45 +4,33 @@ import './app_screens/home.dart   ';
 void main(){
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
-    title: "Exploring UI list view",
+    title: "Exploring UI widgets",
     home: Scaffold(
-      appBar: AppBar(title: Text("Basic list view"),),
-     body: getListview(),
+      appBar: AppBar(title: Text("Long List"),),
+      body: getListView()
     ),
   ));
 }
-//Basic listview is for few list items
-//donot use it for large number of items since it is not memory efficient
-Widget getListview(){
-  var listView = ListView(
-    children: [
-      ListTile(
-        leading: Icon(Icons.landscape),
-        title: Text("Landscape"),
-        subtitle: Text("Beautiful view !"),
-        trailing: Icon(Icons.wb_sunny),
-        onTap:  () {
-          debugPrint("Landascape tapped");
-        },
-      ),
-      ListTile(
-        leading: Icon(Icons.laptop_chromebook),
-        title: Text("windows"),
-        onTap: (){
-          debugPrint("click");
-        },
-      ),
-      ListTile(
-        leading: Icon(Icons.phone),
-        title: Text("phone"),
-        onTap: (){
-          debugPrint("Thanks");
-        },
-      ),
-      Text("Yet another elements in list"),
+//dynamic listview
+List<String> getListElements(){
+  var items = List<String>.generate(1000,(counter) => "Item $counter");
+  return items;
+}
+//most important part that's commonly used
+Widget getListView(){
 
-      Container(color: Colors.red,height: 50.0,)
-    ],
+  var listItems = getListElements();
+
+  var listview = ListView.builder(
+    itemBuilder: (context, index){
+      return ListTile(
+        leading: Icon(Icons.arrow_right),
+        title: Text(listItems[index]),
+        onTap: (){
+          debugPrint('${listItems[index]} was tapped');
+        },
+      );
+    }
   );
-  return listView;
+  return listview;
 }
