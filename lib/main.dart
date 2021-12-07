@@ -1,58 +1,59 @@
 import 'package:flutter/material.dart';
-import './app_screens/home.dart   ';
+// how to use Stateful Widgets
 
 void main(){
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    title: "Exploring UI widgets",
-    home: Scaffold(
-      appBar: AppBar(title: Text("Long List"),),
-      body: getListView(),
-      //FloatingActionButton
-      floatingActionButton: FloatingActionButton(
-        onPressed: (){
-          debugPrint("FAB Clicked");
-        },
-        child: Icon(Icons.add),
-        tooltip: 'Add One More Item',
-    ),
-    ),
-  ));
+
+  runApp(
+   MaterialApp(
+     debugShowCheckedModeBanner: false,
+     title: "Stateful App Example ",
+     home: FavoriteCity(),
+   )
+   );
 }
-//snackBar
-void showSnackBar(BuildContext context, String item){
-  var snackBar = SnackBar(
-      content: Text("You Just Tapped $item"),
-      action: SnackBarAction(
-        label: "UNDO",
-        onPressed: (){
-          debugPrint('Performing dummy UNDO operation');
-        },
+//create a class that extends a "StatefulWidget"
+//that returns a State in "createState()"
+
+class FavoriteCity extends StatefulWidget{
+  @override
+  State<StatefulWidget> createState() {
+    return _FavoriteCityState();
+  }
+}
+
+class _FavoriteCityState extends State<FavoriteCity> {
+
+  String nameCity = " ";
+  @override
+  Widget build(BuildContext context) {
+
+    debugPrint("Favorite City widget is creted");
+
+    return Scaffold(
+      appBar:  AppBar(
+        title:  Text(" Stateful App Example"),
       ),
-  );
-  Scaffold.of(context).showSnackBar(snackBar);
-}
-
-//dynamic listview
-List<String> getListElements(){
-  var items = List<String>.generate(1000,(counter) => "Item $counter");
-  return items;
-}
-//most important part that's commonly used
-Widget getListView(){
-
-  var listItems = getListElements();
-
-  var listview = ListView.builder(
-    itemBuilder: (context, index){
-      return ListTile(
-        leading: Icon(Icons.arrow_right),
-        title: Text(listItems[index]),
-        onTap: (){
-          showSnackBar(context, listItems[index]);
-        },
-      );
-    }
-  );
-  return listview;
+      body:  Container(
+        margin: EdgeInsets.all(20.0),
+        child: Column(
+          children: <Widget>[
+            TextField(
+              onSubmitted: (String userInput){
+                setState(() {
+                  debugPrint("set State is called, this tells framework to redraw the FavCuty widget");
+                  nameCity = userInput;
+                });
+              },
+            ),
+            Padding(
+              padding: EdgeInsets.all(30.0),
+              child: Text(
+              "Your best city is $nameCity",
+              style: TextStyle(fontSize: 20.0),
+            )),
+          ],
+        ),
+      ),
+    );
+  }
 }
