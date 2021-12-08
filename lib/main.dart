@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-// how to use Stateful Widgets
-
+//how to use Stateful Widgets
+//Drop menu item list
 void main(){
 
   runApp(
@@ -23,7 +23,10 @@ class FavoriteCity extends StatefulWidget{
 
 class _FavoriteCityState extends State<FavoriteCity> {
 
-  String nameCity = " ";
+  String nameCity = "";
+  var _currencies = ['Shillings','Rupees','Dollars', 'Others'];
+  var _currentItemSelected = 'Shillings';
+
   @override
   Widget build(BuildContext context) {
 
@@ -45,15 +48,35 @@ class _FavoriteCityState extends State<FavoriteCity> {
                 });
               },
             ),
+            DropdownButton<String>(
+
+              items: _currencies.map((String dropDownStringItem){
+                return DropdownMenuItem<String>(
+                  value: dropDownStringItem,
+                  child:  Text(dropDownStringItem),
+                );
+              }).toList(),
+
+              onChanged: ( newValueSelected){
+                // Your code to execute, when a menu item is selected from drop down
+                _DropDownItemSelected;
+              },
+              value: _currentItemSelected,
+            ),
             Padding(
-              padding: EdgeInsets.all(30.0),
-              child: Text(
-              "Your best city is $nameCity",
-              style: TextStyle(fontSize: 20.0),
-            )),
+                padding: EdgeInsets.all(30.0),
+                child: Text(
+                  "Your best city is $nameCity",
+                  style: TextStyle(fontSize: 20.0),
+                )),
           ],
         ),
       ),
     );
+  }
+  void _DropDownItemSelected(String newValueSelected){
+    setState(() {
+      this._currentItemSelected = newValueSelected;
+    });
   }
 }
