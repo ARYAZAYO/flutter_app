@@ -59,7 +59,7 @@ class _FavoriteCityState extends State<FavoriteCity> {
 
               onChanged: ( newValueSelected){
                 // Your code to execute, when a menu item is selected from drop down
-                _DropDownItemSelected;
+                _onDropDownItemSelected(newValueSelected!);
               },
               value: _currentItemSelected,
             ),
@@ -74,7 +74,7 @@ class _FavoriteCityState extends State<FavoriteCity> {
       ),
     );
   }
-  void _DropDownItemSelected(String newValueSelected){
+  void _onDropDownItemSelected(String newValueSelected){
     setState(() {
       this._currentItemSelected = newValueSelected;
     });
