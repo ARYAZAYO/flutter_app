@@ -27,7 +27,7 @@ class _SIFormState extends State<SIForm>{
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        title:  Text('Simple Interest Calculator'),
+        title:  Text('Simple Interest Calculator UI'),
       ),
 
       body: Container(
