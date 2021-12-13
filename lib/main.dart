@@ -1,82 +1,131 @@
 import 'package:flutter/material.dart';
-//how to use Stateful Widgets
-//Drop menu item list
+
 void main(){
-
   runApp(
-   MaterialApp(
-     debugShowCheckedModeBanner: false,
-     title: "Stateful App Example ",
-     home: FavoriteCity(),
-   )
-   );
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title:  'Simple Interest Calculator App',
+      home: SIForm(),
+    )
+  );
 }
-//create a class that extends a "StatefulWidget"
-//that returns a State in "createState()"
 
-class FavoriteCity extends StatefulWidget{
+class SIForm extends StatefulWidget{
   @override
   State<StatefulWidget> createState() {
-    return _FavoriteCityState();
+    return _SIFormState();
   }
 }
 
-class _FavoriteCityState extends State<FavoriteCity> {
-
-  String nameCity = "";
-  var _currencies = ['Shillings','Rupees','Dollars', 'Others'];
-  var _currentItemSelected = 'Shillings';
+class _SIFormState extends State<SIForm>{
+  var _currencies = ['Shillings','Rupees','Dollars','Others'];
+  //var _currentItemSelected = 'Shillings';
+  final _minimumPadding = 5.0;
 
   @override
   Widget build(BuildContext context) {
-
-    debugPrint("Favorite City widget is creted");
-
     return Scaffold(
-      appBar:  AppBar(
-        title:  Text(" Stateful App Example"),
+      resizeToAvoidBottomInset: false,
+      appBar: AppBar(
+        title:  Text('Simple Interest Calculator'),
       ),
-      body:  Container(
-        margin: EdgeInsets.all(20.0),
+
+      body: Container(
+        margin: EdgeInsets.all(_minimumPadding * 2),
         child: Column(
+        //child: ListView(
           children: <Widget>[
-            TextField(
-              onChanged: (String userInput){
-                setState(() {
-                  debugPrint("set State is called, this tells framework to redraw the FavCuty widget");
-                  nameCity = userInput;
-                });
-              },
-            ),
-            DropdownButton<String>(
-
-              items: _currencies.map((String dropDownStringItem){
-                return DropdownMenuItem<String>(
-                  value: dropDownStringItem,
-                  child:  Text(dropDownStringItem),
-                );
-              }).toList(),
-
-              onChanged: ( newValueSelected){
-                // Your code to execute, when a menu item is selected from drop down
-                _onDropDownItemSelected(newValueSelected!);
-              },
-              value: _currentItemSelected,
-            ),
+            getImageAsset(),
             Padding(
-                padding: EdgeInsets.all(30.0),
-                child: Text(
-                  "Your best city is $nameCity",
-                  style: TextStyle(fontSize: 20.0),
-                )),
+              padding: EdgeInsets.only(top: _minimumPadding, bottom: _minimumPadding),
+              child: TextField(
+              keyboardType:TextInputType.number ,
+              decoration:  InputDecoration(
+                labelText:  'Principal',
+                hintText: 'Enter Principal e.g, 12000',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(5.0)
+                )
+              ),
+            )),
+            Padding(
+              padding: EdgeInsets.only(top: _minimumPadding, bottom: _minimumPadding),
+              child: TextField(
+              keyboardType:TextInputType.number ,
+              decoration:  InputDecoration(
+                  labelText:  'Rate of Interest',
+                  hintText: 'In Percent',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0)
+                      )
+              ),
+            )),
+
+            Padding(
+             padding: EdgeInsets.only(top: _minimumPadding, bottom: _minimumPadding),
+             child: Row(
+             children: <Widget>[
+               Expanded(child: TextField(
+                 keyboardType:TextInputType.number ,
+                 decoration:  InputDecoration(
+                     labelText:  'Term',
+                     hintText: 'Time in years',
+                     border: OutlineInputBorder(
+                         borderRadius: BorderRadius.circular(5.0)
+                     )
+                 ),
+               )),
+
+               Container(width: _minimumPadding * 5,),
+
+               Expanded(child: DropdownButton<String>(
+                   items: _currencies.map((String value){
+                     return DropdownMenuItem<String>(
+                         value: value,
+                         child: Text(value),
+                     );
+                   }).toList(),
+                 value: 'Shillings',
+                 onChanged: ( newValueSelected){
+                 },
+               ))
+             ],
+            )),
+            Padding(
+              padding: EdgeInsets.only(bottom: _minimumPadding,top: _minimumPadding),
+              child: Row(children: [
+                Expanded(
+                    child: RaisedButton(
+                      onPressed: () {
+
+                      },
+                      child:  Text('Calculate')),
+                    ),
+
+                    Expanded(
+                      child: RaisedButton(
+                          onPressed: () {
+
+                          },
+                          child:  Text('Reset')),
+                    ),
+              ],
+            ),),
+            Padding(
+              padding: EdgeInsets.all(_minimumPadding * 2),
+              child: Text('Todo Text'),
+            )
           ],
         ),
       ),
     );
   }
-  void _onDropDownItemSelected(String newValueSelected){
-    setState(() {
-      this._currentItemSelected = newValueSelected;
-    });
+  Widget getImageAsset(){
+    AssetImage assetImage = AssetImage('images/money1.png');
+    Image image = Image(image: assetImage, width: 125.0, height: 125.0,);
+
+    return Container(child:  image,
+      margin: EdgeInsets.all(_minimumPadding * 5),
+    );
   }
 }
