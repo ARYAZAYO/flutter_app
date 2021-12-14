@@ -124,6 +124,7 @@ class _SIFormState extends State<SIForm>{
                       child: RaisedButton(
                         color: Theme.of(context).accentColor,
                           textColor:  Theme.of(context).primaryColorLight,
+                          disabledTextColor: Theme.of(context).primaryColorDark,
                           child:  Text('Reset', textScaleFactor: 1.5,),
                           onPressed: () {
 
